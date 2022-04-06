@@ -10,26 +10,35 @@
         <item name="android:minHeight">@dimen/min_text_height</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/primaryDarkColor</item>
-        <item name="android:textAppearance">?attr/textAppearanceHeadline6</item>
+        <item name="android:textAppearance">?attr/textAppearanceTitleMedium</item>
     </style>
 
     <style name="Widget.FurnitureStore.ItemDescriptionTextView" parent="Widget.MaterialComponents.TextView">
         <item name="android:minHeight">@dimen/min_text_height</item>
         <item name="android:textColor">@color/primaryColor</item>
-        <item name="android:textAppearance">?attr/textAppearanceSubtitle1</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
     </style>
 
     <style name="Widget.FurnitureStore.ItemAmountTextView" parent="Widget.MaterialComponents.TextView">
         <item name="android:minHeight">@dimen/min_text_height</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/secondaryColor</item>
-        <item name="android:textAppearance">?attr/textAppearanceSubtitle1</item>
+        <item name="android:textAppearance">?attr/textAppearanceBodyMedium</item>
     </style>
-
-
 
     <style name="Widget.FurnitureStore.CompoundButton.RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
         <item name="android:paddingStart">8dp</item>
         <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+
+    <style name="Widget.FurnitureStore.PrimaryButton" parent="Widget.MaterialComponents.Button">
+    </style>
+
+    <style name="Widget.FurnitureStore.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/secondaryColor</item>
+    </style>
+
+    <style name="Widget.FurnitureStore.SecondaryButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:color">@color/secondaryColor</item>
     </style>
 </resources>

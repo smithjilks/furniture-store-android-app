@@ -7,6 +7,9 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.14945652173913043" />
         <entry key="app/src/main/res/layout/fragment_catalog.xml" value="0.9" />
         <entry key="app/src/main/res/layout/fragment_checkout.xml" value="0.14945652173913043" />
+        <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.14945652173913043" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.14945652173913043" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
       </map>
     </option>
