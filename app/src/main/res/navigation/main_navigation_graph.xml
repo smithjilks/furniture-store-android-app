@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/catalog_fragment">
+
+    <fragment
+        android:id="@+id/cart_fragment"
+        android:name="com.smith.furniturestore.ui.main.CartFragment"
+        android:label="Cart"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_checkoutFragment"
+            app:destination="@id/checkout_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/catalog_fragment"
+        android:name="com.smith.furniturestore.ui.main.CatalogFragment"
+        android:label="Discover"
+        tools:layout="@layout/fragment_catalog" />
+    <fragment
+        android:id="@+id/checkout_fragment"
+        android:name="com.smith.furniturestore.ui.main.CheckoutFragment"
+        android:label="Checkout"
+        tools:layout="@layout/fragment_checkout" />
+    <fragment
+        android:id="@+id/create_item_fragment"
+        android:name="com.smith.furniturestore.ui.main.CreateItemFragment"
+        android:label="New Item"
+        tools:layout="@layout/fragment_create_item" />
+    <fragment
+        android:id="@+id/favourites_fragment"
+        android:name="com.smith.furniturestore.ui.main.FavouritesFragment"
+        android:label="My Saved Items"
+        tools:layout="@layout/fragment_favourites" />
+    <fragment
+        android:id="@+id/orders_fragment"
+        android:name="com.smith.furniturestore.ui.main.OrdersFragment"
+        android:label="My Orders"
+        tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/profile_fragment"
+        android:name="com.smith.furniturestore.ui.main.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_createItemFragment"
+            app:destination="@id/create_item_fragment" />
+    </fragment>
+</navigation>
