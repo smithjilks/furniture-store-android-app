@@ -16,4 +16,20 @@
     <string name="last_name">Last Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="title">Title</string>
+    <string name="description">Soft Material Sofa Stool</string>
+    <string name="amount_placeholder">$ 40</string>
+    <string name="personal_details">Personal Details</string>
+    <string name="sign_out">sign out</string>
+    <string name="jonh_doe">John Doe</string>
+    <string name="palceholder_tel">+254 723 120 234</string>
+    <string name="placeholder_email">person@gmail.com</string>
+    <string name="my_orders">My Orders</string>
+    <string name="my_cart">My Cart</string>
+    <string name="track_orders">Track Orders</string>
+    <string name="create_item">Create New Item</string>
+    <string name="my_saved_items">My Saved Items</string>
+    <string name="checkout">checkout</string>
+    <string name="empty_cart">Clear Cart</string>
 </resources>

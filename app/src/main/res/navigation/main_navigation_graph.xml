@@ -53,5 +53,9 @@
         <action
             android:id="@+id/action_profile_fragment_to_favourites_fragment"
             app:destination="@id/favourites_fragment" />
+        <action
+            android:id="@+id/action_profile_fragment_to_cart_fragment"
+            app:destination="@id/cart_fragment"
+            app:popUpTo="@id/profile_fragment" />
     </fragment>
 </navigation>
