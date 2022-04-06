@@ -1,12 +1,15 @@
 package com.smith.furniturestore.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.smith.furniturestore.R
 import com.smith.furniturestore.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,8 +26,15 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.main_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
+        setupWithNavController(binding.bottomNavigation, navController)
+
 
         //Set up action bar for use with NavController
         NavigationUI.setupActionBarWithNavController(this, navController)
+
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

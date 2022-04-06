@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/cart_fragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_cart"
+        android:title="@string/cart"/>
+    <item
+        android:id="@+id/catalog_fragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_discover"
+        android:title="@string/discover"/>
+    <item
+        android:id="@+id/profile_fragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/account"/>
+
+</menu>
