@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -47,6 +48,29 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.4.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    implementation "androidx.room:room-ktx:$rootProject.room_version"
+    kapt "androidx.room:room-compiler:$rootProject.room_version"
+    implementation("androidx.room:room-paging:$rootProject.room_paging_version")
+    androidTestImplementation "androidx.room:room-testing:$rootProject.room_version"
+
+    //paging components
+    implementation("androidx.paging:paging-runtime:$rootProject.paging_version")
+
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.0-alpha05"
+
+    // Kotlin components
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines_version"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines_version"
+
+    // GSon
+    implementation'com.google.code.gson:gson:2.8.9'
 
 
     testImplementation 'junit:junit:4.13.2'
