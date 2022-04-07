@@ -32,4 +32,11 @@
     <string name="my_saved_items">My Saved Items</string>
     <string name="checkout">checkout</string>
     <string name="empty_cart">Clear Cart</string>
+    <string name="view_more">View More</string>
+    <string name="read_more">Read More</string>
+    <string name="price_format">Ksh. %d</string>
+    <string name="total_format">Total cost: %d</string>
+    <string name="quantity_format">No of Items: %d</string>
+
+
 </resources>

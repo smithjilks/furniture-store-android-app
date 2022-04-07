@@ -8,11 +8,11 @@ import com.google.gson.reflect.TypeToken
 
 @Entity(tableName = "cart_table")
 data class CartItem(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val id: Int,
-    val catalogItemId: Int,
     val title: String,
     val quantity: Int,
-    val subTotal: Int
+    val subTotal: Int,
+    val imageUrl: String,
 )
 

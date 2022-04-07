@@ -2,8 +2,7 @@ package com.smith.furniturestore.app
 
 import android.app.Application
 import com.smith.furniturestore.data.database.FurnitureDatabase
-import com.smith.furniturestore.data.repository.CartRepository
-import com.smith.furniturestore.data.repository.CatalogRepository
+import com.smith.furniturestore.data.repository.FurnitureRepository
 
 class App : Application() {
     // Using by lazy so the database and the repository are only created when they're needed
@@ -13,12 +12,9 @@ class App : Application() {
         FurnitureDatabase.getDatabase(this, AppScope)
     }
 
-    val catalogRepository by lazy {
-        CatalogRepository(db.catalogDao())
+    val furnitureRepository by lazy {
+        FurnitureRepository(db.furnitureDao())
     }
 
-    val cartRepository by lazy {
-        CartRepository(db.cartDao())
-    }
 
 }

@@ -18,7 +18,11 @@
         android:id="@+id/catalog_fragment"
         android:name="com.smith.furniturestore.ui.main.CatalogFragment"
         android:label="Discover"
-        tools:layout="@layout/fragment_catalog" />
+        tools:layout="@layout/fragment_catalog" >
+        <action
+            android:id="@+id/action_catalog_fragment_to_catalogItemDetailsFragment"
+            app:destination="@id/catalogItemDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/checkout_fragment"
         android:name="com.smith.furniturestore.ui.main.CheckoutFragment"
@@ -57,5 +61,14 @@
             android:id="@+id/action_profile_fragment_to_cart_fragment"
             app:destination="@id/cart_fragment"
             app:popUpTo="@id/profile_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/catalogItemDetailsFragment"
+        android:name="com.smith.furniturestore.ui.main.CatalogItemDetailsFragment"
+        android:label="Item Details"
+        tools:layout="@layout/fragment_catalog_item_details">
+        <argument
+            android:name="item_id"
+            app:argType="string" />
     </fragment>
 </navigation>

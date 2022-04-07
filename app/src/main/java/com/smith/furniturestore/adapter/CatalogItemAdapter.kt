@@ -2,19 +2,20 @@ package com.smith.furniturestore.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.smith.furniturestore.app.App
-import com.smith.furniturestore.data.database.dao.CartDao
-import com.smith.furniturestore.data.database.entity.CartItem
+import coil.load
+import com.smith.furniturestore.R
 import com.smith.furniturestore.data.database.entity.CatalogItem
-import com.smith.furniturestore.data.repository.CartRepository
-import com.smith.furniturestore.data.repository.CatalogRepository
 import com.smith.furniturestore.databinding.CatalogItemBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.smith.furniturestore.ui.main.CatalogFragmentDirections
+
 
 class CatalogItemsAdapter : PagingDataAdapter<CatalogItem, CatalogItemsAdapter.CatalogItemsViewHolder>(
     CatalogItemDiffUtil()
@@ -22,16 +23,21 @@ class CatalogItemsAdapter : PagingDataAdapter<CatalogItem, CatalogItemsAdapter.C
 
     class CatalogItemsViewHolder(private val binding: CatalogItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         fun bind(catalogItem: CatalogItem) {
             binding.catalogItemTitleTextView.text = catalogItem.title
             binding.catalogItemDescriptionTextView.text = catalogItem.shortDescription
-            binding.catalogItemPriceTextView.text = catalogItem.price.toString()
+            binding.catalogItemPriceTextView.text = binding.root.context.getString(R.string.price_format, catalogItem.price)
 
-            binding.floatingActionButton.setOnClickListener {
-                val cartItem = CartItem(0, catalogItem.id, catalogItem.title, 1, catalogItem.price)
-                CoroutineScope(Dispatchers.IO).launch {
+            val imgUri = catalogItem.imageUrl.toUri().buildUpon().scheme("https").build()
+            binding.catalogItemImageView.load(imgUri) {
+                placeholder(R.drawable.ic_loading)
+                error(R.drawable.ic_broken_image)
+            }
 
-                }
+            binding.readMoreButton.setOnClickListener {
+                val action = CatalogFragmentDirections.actionCatalogFragmentToCatalogItemDetailsFragment(catalogItem.id.toString())
+                binding.root.findNavController().navigate(action)
 
             }
         }
@@ -56,6 +62,14 @@ class CatalogItemsAdapter : PagingDataAdapter<CatalogItem, CatalogItemsAdapter.C
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogItemsAdapter.CatalogItemsViewHolder {
-        return CatalogItemsViewHolder(CatalogItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return CatalogItemsAdapter.CatalogItemsViewHolder(
+            CatalogItemBinding.inflate(
+                LayoutInflater.from(
+                    parent.context
+                ), parent, false
+            )
+        )
     }
+
 }
+

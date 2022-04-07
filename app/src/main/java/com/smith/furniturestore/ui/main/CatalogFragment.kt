@@ -28,7 +28,7 @@ class CatalogFragment : Fragment() {
 
     private val viewModel: CatalogFragmentViewModel by viewModels {
         CatalogFragmentViewModelFactory(
-            (activity?.application as App).catalogRepository
+            (activity?.application as App).furnitureRepository
         )
     }
 

@@ -9,11 +9,9 @@ import com.smith.furniturestore.data.database.entity.CatalogItem
 import com.smith.furniturestore.data.repository.FurnitureRepository
 import kotlinx.coroutines.launch
 
-class CartFragmentViewModel(private val furnitureRepository: FurnitureRepository) : ViewModel() {
-
+class CatalogItemDetailsFragmentViewModel(private val furnitureRepository: FurnitureRepository) : ViewModel() {
     // CachedIn makes sure even with config changes the data survives (or remains the same)
     // Tying it to view model scope to take advantage of view model lifecycle
-    val getAll = furnitureRepository.getAllCartItems
 
 
     /**
@@ -23,22 +21,20 @@ class CartFragmentViewModel(private val furnitureRepository: FurnitureRepository
         furnitureRepository.insertCartItem(cartItem)
     }
 
-    fun updateSingleCartItem(cartItem: CartItem)  =  viewModelScope.launch {
-        furnitureRepository.updateSingleCartItem(cartItem)
-    }
 
-    fun deleteCartItem(id: String)  =  viewModelScope.launch {
-        furnitureRepository.deleteSingleCartItem(id)
+
+    suspend fun getSingleCatalogItemById(id: String): CatalogItem {
+            return  furnitureRepository.getCatalogItemById(id)
     }
 
 
 }
 
-class CartFragmentViewModelFactory(private val furnitureRepository: FurnitureRepository) : ViewModelProvider.Factory {
+class CatalogItemDetailsFragmentViewModelFactory(private val furnitureRepository: FurnitureRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(CartFragmentViewModel::class.java)) {
+        if(modelClass.isAssignableFrom(CatalogItemDetailsFragmentViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return  CartFragmentViewModel(furnitureRepository) as T
+            return  CatalogItemDetailsFragmentViewModel(furnitureRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel")
     }

@@ -26,7 +26,7 @@ class CartFragment : Fragment() {
 
     private val viewModel: CartFragmentViewModel by viewModels {
         CartFragmentViewModelFactory(
-            (activity?.application as App).cartRepository
+            (activity?.application as App).furnitureRepository
         )
     }
 

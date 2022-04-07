@@ -9,8 +9,7 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.smith.furniturestore.data.database.dao.CartDao
-import com.smith.furniturestore.data.database.dao.CatalogDao
+import com.smith.furniturestore.data.database.dao.FurnitureDao
 import com.smith.furniturestore.data.database.entity.CartItem
 import com.smith.furniturestore.data.database.entity.CatalogItem
 import com.smith.furniturestore.data.database.entity.CatalogItemConverter
@@ -20,8 +19,7 @@ import kotlinx.coroutines.launch
 @Database(entities = [CatalogItem::class, CartItem::class], version = 1, exportSchema = false)
 @TypeConverters(CatalogItemConverter::class)
 abstract class FurnitureDatabase : RoomDatabase() {
-    abstract fun catalogDao(): CatalogDao
-    abstract fun cartDao(): CartDao
+    abstract fun furnitureDao(): FurnitureDao
 
 
     companion object {
@@ -42,7 +40,7 @@ abstract class FurnitureDatabase : RoomDatabase() {
                             super.onCreate(db)
                             coroutineScope.launch {
                                 INSTANCE?.let {
-                                    insertData(context, it.catalogDao())
+                                    insertData(context, it.furnitureDao())
                                 }
                             }
                         }
@@ -54,14 +52,14 @@ abstract class FurnitureDatabase : RoomDatabase() {
             }
         }
 
-        suspend fun insertData(context: Context, catalogDao: CatalogDao) {
-            catalogDao.deleteAll()
+        suspend fun insertData(context: Context, furnitureDao: FurnitureDao) {
+            furnitureDao.deleteAllCatalogItems()
             context.assets.open("catalog.json").bufferedReader().use { inputStream ->
                 val catalogItem = object : TypeToken<List<CatalogItem>>() {}.type
                 val catalogItemsList: List<CatalogItem> =
                     Gson().fromJson(inputStream.readText(), catalogItem)
                 Log.d("seed", "$catalogItemsList")
-                catalogDao.insertAll(catalogItemsList)
+                furnitureDao.insertAllCatalogItems(catalogItemsList)
             }
         }
 
