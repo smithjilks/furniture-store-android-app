@@ -2,18 +2,38 @@ package com.smith.furniturestore.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.smith.furniturestore.R
+import com.smith.furniturestore.app.App
 import com.smith.furniturestore.databinding.FragmentLoginBinding
+import com.smith.furniturestore.model.UserAuthCredentials
 import com.smith.furniturestore.ui.MainActivity
+import com.smith.furniturestore.viewmodel.CatalogFragmentViewModel
+import com.smith.furniturestore.viewmodel.CatalogFragmentViewModelFactory
+import com.smith.furniturestore.viewmodel.SharedAuthViewModel
+import com.smith.furniturestore.viewmodel.SharedAuthViewModelFactory
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
+    private var progressBar: ProgressBar? = null
+
+
+    private val viewModel: SharedAuthViewModel by activityViewModels {
+        SharedAuthViewModelFactory(
+            (activity?.application as App).furnitureRepository
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +46,8 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        progressBar = binding.loginProgressBar
+
 
         binding.getAccountButton.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
@@ -36,12 +58,50 @@ class LoginFragment : Fragment() {
         }
 
         binding.loginButton.setOnClickListener {
-            val intent = Intent(context, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+            if (isEnteredDataValid()) {
+                progressBar!!.visibility = View.VISIBLE
+                binding.loginButton.isEnabled = false
 
+                val userAuthCredentials = UserAuthCredentials(
+                    binding.loginEmailEditText.text.toString().trim(),
+                    binding.loginPasswordEditText.text.toString()
+                )
+                viewModel.loginUser(userAuthCredentials)
+            }
         }
 
+        viewModel.loginStatus.observe(viewLifecycleOwner, Observer {
+            if (it == "success") {
+
+                val intent = Intent(context, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+
+            } else {
+                progressBar!!.visibility = View.GONE
+                binding.loginButton.isEnabled = true
+            }
+
+
+        })
+
+    }
+
+    private fun isEnteredDataValid(): Boolean {
+        val email = binding.loginEmailEditText
+        val password = binding.loginPasswordEditText
+
+        if (password.text.toString().length <= 8) {
+            password.error = getString(R.string.error_password)
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email.text.toString().trim())
+                .matches() || email.text.isNullOrEmpty()
+        ) {
+            email.error = getString(R.string.error_email)
+        }
+
+        return !(email.error != null || password.error != null)
     }
 
     override fun onDestroy() {

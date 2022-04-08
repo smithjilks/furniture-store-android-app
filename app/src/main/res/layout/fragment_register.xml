@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.auth.RegisterFragment">
 
+    <ProgressBar
+        android:id="@+id/signup_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+
 
     <LinearLayout
         android:id="@+id/signup_linearlayout"

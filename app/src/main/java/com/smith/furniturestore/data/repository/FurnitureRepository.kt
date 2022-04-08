@@ -9,6 +9,7 @@ import com.smith.furniturestore.data.database.entity.CatalogItem
 import com.smith.furniturestore.data.database.entity.OrderItem
 import com.smith.furniturestore.data.database.entity.UserInfo
 import com.smith.furniturestore.data.datasource.FurnitureRemoteDatasource
+import com.smith.furniturestore.model.ApiResponse
 import com.smith.furniturestore.model.UserAuthCredentials
 import com.smith.furniturestore.model.UserRegistrationInfo
 
@@ -154,12 +155,12 @@ class FurnitureRepository(
     /**
      * Methods for interacting with Remote API [User Data]
      */
-    suspend fun authenticateUser(userAuthCredentials: UserAuthCredentials) {
-        furnitureRemoteDatasource.authenticateUser(userAuthCredentials)
+    suspend fun authenticateUser(userAuthCredentials: UserAuthCredentials): UserInfo {
+        return furnitureRemoteDatasource.authenticateUser(userAuthCredentials)
     }
 
-    suspend fun registerUser(userRegistrationInfo: UserRegistrationInfo) {
-        furnitureRemoteDatasource.createNewUser(userRegistrationInfo)
+    suspend fun registerUser(userRegistrationInfo: UserRegistrationInfo): ApiResponse {
+        return furnitureRemoteDatasource.createNewUser(userRegistrationInfo)
     }
 
 
