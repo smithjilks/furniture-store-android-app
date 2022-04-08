@@ -37,6 +37,11 @@
     <string name="price_format">Ksh. %d</string>
     <string name="total_format">Total cost: %d</string>
     <string name="quantity_format">No of Items: %d</string>
+    <string name="complete_checkout">Complete Checkout</string>
+    <string name="payment_method">"Select a Payment Method to Continue: "</string>
+    <string name="tingg">Tingg</string>
+    <string name="mpesa">M-Pesa</string>
+    <string name="debit_card">Debit Card</string>
 
 
 </resources>

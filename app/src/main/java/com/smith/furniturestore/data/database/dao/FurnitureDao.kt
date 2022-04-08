@@ -4,11 +4,15 @@ import androidx.paging.PagingSource
 import androidx.room.*
 import com.smith.furniturestore.data.database.entity.CartItem
 import com.smith.furniturestore.data.database.entity.CatalogItem
+import com.smith.furniturestore.data.database.entity.OrderItem
+import com.smith.furniturestore.data.database.entity.UserInfo
 
 @Dao
 interface FurnitureDao {
 
-    //Catalog Table
+    /**
+     * [Catalog table] Queries
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllCatalogItems(catalogItems: List<CatalogItem>)
 
@@ -29,7 +33,9 @@ interface FurnitureDao {
     suspend fun deleteSingleCatalogItem(id: String)
 
 
-    // Cart Table
+    /**
+     * [Cart table] Queries
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllCartItems(catalogItems: List<CatalogItem>)
 
@@ -51,6 +57,54 @@ interface FurnitureDao {
 
     @Query("DELETE FROM cart_table where id=:id")
     suspend fun deleteSingleCartItem(id: String)
+
+
+
+    /**
+     * [Orders table] Queries
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllOrderItems(orderItems: List<OrderItem>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSingleOrderItem(orderItem: OrderItem)
+
+    @Update
+    suspend fun updateSingleOrderItem(orderItem: OrderItem)
+
+    @Query("SELECT * FROM orders_table")
+    fun getAllOrderItems(): PagingSource<Int, OrderItem>
+    //PagingSource returns flow by default
+
+    @Query("SELECT * FROM orders_table where id=:id")
+    fun getOrderItemById(id: String): OrderItem
+
+    @Query("DELETE FROM orders_table")
+    suspend fun deleteAllOrderItems()
+
+    @Query("DELETE FROM orders_table where id=:id")
+    suspend fun deleteSingleOrderItem(id: String)
+
+
+    /**
+     * [User table] Queries
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUserInfo(userInfo: UserInfo)
+
+    @Update
+    suspend fun updateUserInfo(userInfo: UserInfo)
+
+    @Query("SELECT * FROM user_table")
+    fun getUserInfo(): PagingSource<Int, UserInfo>
+    //PagingSource returns flow by default
+
+    @Query("SELECT * FROM user_table where id=:id")
+    fun getUserInfoById(id: String): UserInfo
+
+    @Query("DELETE FROM user_table")
+    suspend fun deleteUserInfo()
+
 
 
 }

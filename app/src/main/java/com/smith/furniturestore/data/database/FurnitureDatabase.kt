@@ -10,16 +10,15 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.smith.furniturestore.data.database.dao.FurnitureDao
-import com.smith.furniturestore.data.database.entity.CartItem
-import com.smith.furniturestore.data.database.entity.CatalogItem
-import com.smith.furniturestore.data.database.entity.CatalogItemConverter
+import com.smith.furniturestore.data.database.entity.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [CatalogItem::class, CartItem::class], version = 1, exportSchema = false)
-@TypeConverters(CatalogItemConverter::class)
+@Database(entities = [CatalogItem::class, CartItem::class, OrderItem::class, UserInfo::class], version = 1, exportSchema = false)
+@TypeConverters(CatalogItemConverter::class, CartItemConverter::class)
 abstract class FurnitureDatabase : RoomDatabase() {
     abstract fun furnitureDao(): FurnitureDao
+
 
 
     companion object {

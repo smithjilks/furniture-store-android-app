@@ -6,6 +6,11 @@ import androidx.paging.PagingConfig
 import com.smith.furniturestore.data.database.dao.FurnitureDao
 import com.smith.furniturestore.data.database.entity.CartItem
 import com.smith.furniturestore.data.database.entity.CatalogItem
+import com.smith.furniturestore.data.database.entity.OrderItem
+import com.smith.furniturestore.data.database.entity.UserInfo
+import com.smith.furniturestore.data.datasource.FurnitureRemoteDatasource
+import com.smith.furniturestore.model.UserAuthCredentials
+import com.smith.furniturestore.model.UserRegistrationInfo
 
 import kotlin.Suppress;
 
@@ -13,8 +18,13 @@ import kotlin.Suppress;
  * Declares the DAO as a private property in the constructor. Pass in the DAO
  * instead of the whole database, because you only need access to the DAO
  */
-class FurnitureRepository(private val furnitureDao: FurnitureDao) {
+class FurnitureRepository(
+    private val furnitureDao: FurnitureDao,
+    private val furnitureRemoteDatasource: FurnitureRemoteDatasource
+) {
 
+
+    // Room Database Data
     /**
      * Room executes all queries on a separate thread.
      * Observed Flow will notify the observer when the data has changed.
@@ -26,25 +36,34 @@ class FurnitureRepository(private val furnitureDao: FurnitureDao) {
      * implement anything else to ensure we're not doing long running database work
      * off the main thread.
      */
-    // Catalog
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
+
+
+    /**
+     * Methods for accessing [Catalog Table]
+     */
+
+    //@WorkerThread
     suspend fun insertCatalogItem(catalogItem: CatalogItem) {
         furnitureDao.insertSingleCatalogItem(catalogItem)
+    }
+
+    suspend fun insertAllCatalogItems(catalogItems: List<CatalogItem>) {
+        furnitureDao.insertAllCatalogItems(catalogItems)
     }
 
     val getAllCatalogItems = Pager(PagingConfig(pageSize = 5, enablePlaceholders = true),
         pagingSourceFactory = { furnitureDao.getAllCatalogItems() }
     ).flow
 
-    suspend  fun getCatalogItemById(id: String) : CatalogItem {
+    suspend fun getCatalogItemById(id: String): CatalogItem {
         return furnitureDao.getCatalogItemById(id)
     }
 
 
-    //Cart
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
+    /**
+     * Methods for accessing [Cart Table]
+     */
+
     suspend fun insertCartItem(cartItem: CartItem) {
         furnitureDao.insertSingleCartItem(cartItem)
     }
@@ -53,7 +72,7 @@ class FurnitureRepository(private val furnitureDao: FurnitureDao) {
         pagingSourceFactory = { furnitureDao.getAllCartItems() }
     ).flow
 
-    suspend fun getCartItemById(id: String) : CartItem {
+    suspend fun getCartItemById(id: String): CartItem {
         return furnitureDao.getCartItemById(id)
     }
 
@@ -64,4 +83,110 @@ class FurnitureRepository(private val furnitureDao: FurnitureDao) {
     suspend fun deleteSingleCartItem(id: String) {
         return furnitureDao.deleteSingleCartItem(id)
     }
+
+    suspend fun deleteAllCartItems() {
+        furnitureDao.deleteAllCartItems()
+    }
+
+
+    /**
+     * Methods for accessing [Order Table]
+     */
+
+    suspend fun insertOrderItem(orderItem: OrderItem) {
+        furnitureDao.insertSingleOrderItem(orderItem)
+    }
+
+    suspend fun insertAllOrderItems(orderItems: List<OrderItem>) {
+        furnitureDao.insertAllOrderItems(orderItems)
+    }
+
+    val getAllOrderItems = Pager(PagingConfig(pageSize = 5, enablePlaceholders = true),
+        pagingSourceFactory = { furnitureDao.getAllOrderItems() }
+    ).flow
+
+    suspend fun getOrderItemById(id: String): OrderItem {
+        return furnitureDao.getOrderItemById(id)
+    }
+
+    suspend fun updateSingleOrderItem(orderItem: OrderItem) {
+        return furnitureDao.updateSingleOrderItem(orderItem)
+    }
+
+    suspend fun deleteSingleOrderItem(id: String) {
+        return furnitureDao.deleteSingleOrderItem(id)
+    }
+
+    suspend fun deleteAllOrderItems() {
+        furnitureDao.deleteAllOrderItems()
+    }
+
+
+    /**
+     * Methods for accessing [User Table]
+     */
+
+    suspend fun insertUserInfo(userInfo: UserInfo) {
+        furnitureDao.insertUserInfo(userInfo)
+    }
+
+    val getUserInfo = Pager(PagingConfig(pageSize = 5, enablePlaceholders = true),
+        pagingSourceFactory = { furnitureDao.getUserInfo() }
+    ).flow
+
+    suspend fun getUserInfoById(id: String): UserInfo {
+        return furnitureDao.getUserInfoById(id)
+    }
+
+    suspend fun updateUserInfo(userInfo: UserInfo) {
+        return furnitureDao.updateUserInfo(userInfo)
+    }
+
+    suspend fun deleteUserInfo() {
+        furnitureDao.deleteUserInfo()
+    }
+
+
+    /**
+     * Methods for access remote datasource
+     */
+
+    /**
+     * Methods for interacting with Remote API [User Data]
+     */
+    suspend fun authenticateUser(userAuthCredentials: UserAuthCredentials) {
+        furnitureRemoteDatasource.authenticateUser(userAuthCredentials)
+    }
+
+    suspend fun registerUser(userRegistrationInfo: UserRegistrationInfo) {
+        furnitureRemoteDatasource.createNewUser(userRegistrationInfo)
+    }
+
+
+    /**
+     * Methods for interacting with Remote API [Orders Data]
+     */
+
+    suspend fun fetchUserOrders(userId: String) {
+        furnitureRemoteDatasource.fetchUserOrders(userId)
+    }
+
+    suspend fun createOrderItem(orderItem: OrderItem) {
+        furnitureRemoteDatasource.createNewOrderItem(orderItem)
+    }
+
+
+
+    /**
+     * Methods for interacting with Remote API [Catalog Data]
+     */
+
+    suspend fun fetchCatalogItems() {
+        furnitureRemoteDatasource.fetchCatalogItems()
+    }
+
+    suspend fun createCatalogItem(catalogItem: CatalogItem) {
+        furnitureRemoteDatasource.createNewCatalogItem(catalogItem)
+    }
+
 }

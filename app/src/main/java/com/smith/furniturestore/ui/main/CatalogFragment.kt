@@ -58,8 +58,6 @@ class CatalogFragment : Fragment() {
             viewModel.getAll.collectLatest { pagedList ->
                 pagedList?.let {
                     adapter.submitData(pagedList)
-                    Toast.makeText(context, adapter.snapshot().size.toString(), Toast.LENGTH_LONG).show()
-
                 }
 
             }

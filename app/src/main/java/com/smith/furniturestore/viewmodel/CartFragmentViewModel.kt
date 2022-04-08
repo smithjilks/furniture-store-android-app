@@ -31,6 +31,12 @@ class CartFragmentViewModel(private val furnitureRepository: FurnitureRepository
         furnitureRepository.deleteSingleCartItem(id)
     }
 
+    fun clearCart() {
+            viewModelScope.launch {
+                furnitureRepository.deleteAllCartItems()
+            }
+        }
+
 
 }
 

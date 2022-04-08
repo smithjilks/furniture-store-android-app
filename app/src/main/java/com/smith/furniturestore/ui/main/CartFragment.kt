@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.smith.furniturestore.R
 import com.smith.furniturestore.adapter.CartItemsAdapter
 import com.smith.furniturestore.app.App
 import com.smith.furniturestore.databinding.FragmentCartBinding
@@ -58,6 +60,18 @@ class CartFragment : Fragment() {
                     adapter.submitData(pagedList)
                 }
 
+            }
+        }
+
+        binding.clearCartButton.setOnClickListener {
+            viewModel.clearCart()
+        }
+
+        binding.cartCheckoutButton.setOnClickListener {
+            if (adapter.snapshot().size == 0) {
+                Toast.makeText(context, "You have an empty cart", Toast.LENGTH_LONG).show()
+            } else {
+                findNavController().navigate(R.id.action_cartFragment_to_checkoutFragment)
             }
         }
 

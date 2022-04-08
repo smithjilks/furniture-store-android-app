@@ -16,3 +16,18 @@ data class CartItem(
     val imageUrl: String,
 )
 
+class CartItemConverter {
+    @TypeConverter
+    fun toCartItemItemList(value: String): List<CartItem> {
+        val listType = object: TypeToken<List<CartItem>>() {}.type
+        return Gson().fromJson(value, listType)
+    }
+
+    @TypeConverter
+    fun toCatalogItemListJson(list: List<CartItem>): String {
+        val type = object : TypeToken<List<CartItem>>() {}.type
+        return Gson().toJson(list, type)
+    }
+}
+
+
