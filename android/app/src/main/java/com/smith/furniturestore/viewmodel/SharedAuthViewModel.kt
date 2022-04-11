@@ -28,6 +28,26 @@ class SharedAuthViewModel(private val furnitureRepository: FurnitureRepository) 
     val signupStatus: LiveData<String> = _signupStatus
 
 
+
+    init {
+        autoAuthUser()
+    }
+
+
+
+    /**
+     * Launching a new coroutine to submit user registration details to api
+     * in a non-blocking way
+     */
+    private fun autoAuthUser() {
+        viewModelScope.launch {
+            if (furnitureRepository.getUserInfo() != null) {
+                _loginStatus.value = "success"
+            }
+        }
+    }
+
+
     /**
      * Launching a new coroutine to submit user registration details to api
      * in a non-blocking way

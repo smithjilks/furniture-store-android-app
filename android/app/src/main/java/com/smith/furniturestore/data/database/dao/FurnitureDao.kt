@@ -96,7 +96,7 @@ interface FurnitureDao {
     suspend fun updateUserInfo(userInfo: UserInfo)
 
     @Query("SELECT * FROM user_table")
-    fun getUserInfo(): PagingSource<Int, UserInfo>
+    suspend fun getUserInfo(): UserInfo
     //PagingSource returns flow by default
 
     @Query("SELECT * FROM user_table where id=:id")

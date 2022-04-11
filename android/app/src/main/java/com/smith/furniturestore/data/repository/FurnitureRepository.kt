@@ -131,9 +131,9 @@ class FurnitureRepository(
         furnitureDao.insertUserInfo(userInfo)
     }
 
-    val getUserInfo = Pager(PagingConfig(pageSize = 5, enablePlaceholders = true),
-        pagingSourceFactory = { furnitureDao.getUserInfo() }
-    ).flow
+    suspend fun getUserInfo() {
+        furnitureDao.getUserInfo()
+    }
 
     suspend fun getUserInfoById(id: String): UserInfo {
         return furnitureDao.getUserInfoById(id)
