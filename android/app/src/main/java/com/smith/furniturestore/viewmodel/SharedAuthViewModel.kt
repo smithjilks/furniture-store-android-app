@@ -28,6 +28,11 @@ class SharedAuthViewModel(private val furnitureRepository: FurnitureRepository) 
     val signupStatus: LiveData<String> = _signupStatus
 
 
+    // User Profile Info observables
+    private val _userProfileInfo = MutableLiveData<UserInfo>()
+    val userProfileInfo: LiveData<UserInfo> = _userProfileInfo
+
+
 
     init {
         autoAuthUser()
@@ -42,6 +47,7 @@ class SharedAuthViewModel(private val furnitureRepository: FurnitureRepository) 
     private fun autoAuthUser() {
         viewModelScope.launch {
             if (furnitureRepository.getUserInfo() != null) {
+                getSavedUserInfo()
                 _loginStatus.value = "success"
             }
         }
@@ -95,6 +101,24 @@ class SharedAuthViewModel(private val furnitureRepository: FurnitureRepository) 
 
             }
 
+        }
+    }
+
+    /**
+     * Launching a new coroutine to submit user registration details to api
+     * in a non-blocking way
+     */
+    fun getSavedUserInfo() {
+        viewModelScope.launch {
+            _userProfileInfo.value = furnitureRepository.getUserInfo()
+            Log.d("User Profile Info", _userProfileInfo.toString())
+        }
+    }
+
+
+    fun logoutUser() {
+        viewModelScope.launch {
+            furnitureRepository.deleteUserInfo()
         }
     }
 

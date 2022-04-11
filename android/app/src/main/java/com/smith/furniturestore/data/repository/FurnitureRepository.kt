@@ -131,8 +131,8 @@ class FurnitureRepository(
         furnitureDao.insertUserInfo(userInfo)
     }
 
-    suspend fun getUserInfo() {
-        furnitureDao.getUserInfo()
+    suspend fun getUserInfo(): UserInfo {
+        return furnitureDao.getUserInfo()
     }
 
     suspend fun getUserInfoById(id: String): UserInfo {

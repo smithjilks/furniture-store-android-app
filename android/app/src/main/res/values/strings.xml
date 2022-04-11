@@ -48,6 +48,7 @@
     <string name="error_last_name">Last name is required</string>
     <string name="error_phone">Phone is required</string>
     <string name="error_confirm_password">Passwords do not match</string>
+    <string name="userprofile_info_format">%s</string>
 
 
 </resources>
