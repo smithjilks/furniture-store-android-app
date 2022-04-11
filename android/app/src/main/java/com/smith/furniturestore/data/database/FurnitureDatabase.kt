@@ -53,7 +53,7 @@ abstract class FurnitureDatabase : RoomDatabase() {
 
         suspend fun insertData(context: Context, furnitureDao: FurnitureDao) {
             furnitureDao.deleteAllCatalogItems()
-            context.assets.open("catalog.json").bufferedReader().use { inputStream ->
+            context.assets.open("catalog2.json").bufferedReader().use { inputStream ->
                 val catalogItem = object : TypeToken<List<CatalogItem>>() {}.type
                 val catalogItemsList: List<CatalogItem> =
                     Gson().fromJson(inputStream.readText(), catalogItem)

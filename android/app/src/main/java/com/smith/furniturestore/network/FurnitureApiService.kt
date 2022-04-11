@@ -16,7 +16,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 private const val  BASE_URL =
-    "https://2d4e-197-232-61-236.ngrok.io/api/v1/"
+    "https://0e9e-197-232-61-234.ngrok.io/api/v1/"
 
 
 /**

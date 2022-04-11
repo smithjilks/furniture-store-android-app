@@ -1,7 +1,10 @@
 package com.smith.furniturestore.viewmodel
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
+import com.smith.furniturestore.app.AppScope.context
 import com.smith.furniturestore.data.database.entity.CartItem
 import com.smith.furniturestore.data.database.entity.CatalogItem
 import com.smith.furniturestore.data.database.entity.UserInfo
@@ -34,8 +37,9 @@ class SharedAuthViewModel(private val furnitureRepository: FurnitureRepository) 
             try {
                 val userInfo: UserInfo = furnitureRepository.authenticateUser(userAuthCredentials)
                 furnitureRepository.insertUserInfo(userInfo)
-                _loginStatus.value = "Success"
+                _loginStatus.value = "success"
             } catch (e: Exception) {
+                Log.e("Auth Error", e.toString())
                 _loginStatus.value = "failed"
             }
 

@@ -1,5 +1,7 @@
 package com.smith.furniturestore.viewmodel
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -11,6 +13,12 @@ import kotlinx.coroutines.launch
 
 class CatalogFragmentViewModel(private val furnitureRepository: FurnitureRepository) : ViewModel() {
 
+
+    init {
+        seedRoomDb()
+    }
+
+
     // CachedIn makes sure even with config changes the data survives (or remains the same)
     // Tying it to view model scope to take advantage of view model lifecycle
     val getAll = furnitureRepository.getAllCatalogItems.cachedIn(viewModelScope)
@@ -21,6 +29,20 @@ class CatalogFragmentViewModel(private val furnitureRepository: FurnitureReposit
      */
     fun insert(catalogItem: CatalogItem) = viewModelScope.launch {
         furnitureRepository.insertCatalogItem(catalogItem)
+    }
+
+    private fun seedRoomDb() {
+        viewModelScope.launch {
+            try {
+                val catalogItems: List<CatalogItem> = furnitureRepository.fetchCatalogItems()
+                Log.d("Catalog Items", catalogItems.toString())
+                furnitureRepository.insertAllCatalogItems(catalogItems)
+            } catch (e: Exception) {
+                Log.e("Fetch Catalog Error", e.toString())
+            }
+
+        }
+
     }
 
 }

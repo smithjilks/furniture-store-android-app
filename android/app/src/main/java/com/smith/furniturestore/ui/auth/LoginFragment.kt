@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -77,9 +78,12 @@ class LoginFragment : Fragment() {
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
 
+                Toast.makeText(context, "Login success", Toast.LENGTH_LONG).show()
+
             } else {
                 progressBar!!.visibility = View.GONE
                 binding.loginButton.isEnabled = true
+                Toast.makeText(context, "Login Failed", Toast.LENGTH_LONG).show()
             }
 
 

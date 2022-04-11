@@ -182,8 +182,8 @@ class FurnitureRepository(
      * Methods for interacting with Remote API [Catalog Data]
      */
 
-    suspend fun fetchCatalogItems() {
-        furnitureRemoteDatasource.fetchCatalogItems()
+    suspend fun fetchCatalogItems(): List<CatalogItem> {
+        return furnitureRemoteDatasource.fetchCatalogItems()
     }
 
     suspend fun createCatalogItem(catalogItem: CatalogItem) {
