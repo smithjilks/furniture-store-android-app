@@ -9,6 +9,8 @@ import com.smith.furniturestore.model.UserRegistrationInfo
 import com.smith.furniturestore.network.FurnitureApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class FurnitureRemoteDatasource(
     private val furnitureAPI: FurnitureApi,
@@ -38,9 +40,22 @@ class FurnitureRemoteDatasource(
             furnitureAPI.retrofitService.getCatalogItems()
         }
 
-    suspend fun createNewCatalogItem(catalogItem: CatalogItem): ApiResponse =
+    suspend fun createNewCatalogItem(
+        token: String,
+        title: RequestBody,
+        shortDescription: RequestBody,
+        longDescription: RequestBody,
+        price: RequestBody,
+        itemImage: MultipartBody.Part
+    ): ApiResponse =
         withContext(ioDispatcher) {
-            furnitureAPI.retrofitService.createCatalogItem(catalogItem)
+            furnitureAPI.retrofitService.createCatalogItem(
+                token,
+                title,
+                shortDescription,
+                longDescription,
+                price,
+                itemImage)
         }
 
 

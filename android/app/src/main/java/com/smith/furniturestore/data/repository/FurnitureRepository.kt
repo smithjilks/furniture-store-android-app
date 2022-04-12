@@ -12,6 +12,10 @@ import com.smith.furniturestore.data.datasource.FurnitureRemoteDatasource
 import com.smith.furniturestore.model.ApiResponse
 import com.smith.furniturestore.model.UserAuthCredentials
 import com.smith.furniturestore.model.UserRegistrationInfo
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.Header
+import retrofit2.http.Part
 
 import kotlin.Suppress;
 
@@ -72,6 +76,10 @@ class FurnitureRepository(
     val getAllCartItems = Pager(PagingConfig(pageSize = 5, enablePlaceholders = true),
         pagingSourceFactory = { furnitureDao.getAllCartItems() }
     ).flow
+
+    suspend fun getAllCartItemsAsList(): List<CartItem> {
+        return furnitureDao.getAllCartItemsAsList()
+    }
 
     suspend fun getCartItemById(id: String): CartItem {
         return furnitureDao.getCartItemById(id)
@@ -177,7 +185,6 @@ class FurnitureRepository(
     }
 
 
-
     /**
      * Methods for interacting with Remote API [Catalog Data]
      */
@@ -186,8 +193,22 @@ class FurnitureRepository(
         return furnitureRemoteDatasource.fetchCatalogItems()
     }
 
-    suspend fun createCatalogItem(catalogItem: CatalogItem) {
-        furnitureRemoteDatasource.createNewCatalogItem(catalogItem)
+    suspend fun createCatalogItem(
+        token: String,
+        title: RequestBody,
+        shortDescription: RequestBody,
+        longDescription: RequestBody,
+        price: RequestBody,
+        itemImage: MultipartBody.Part
+    ): ApiResponse {
+        return furnitureRemoteDatasource.createNewCatalogItem(
+            token,
+            title,
+            shortDescription,
+            longDescription,
+            price,
+            itemImage
+        )
     }
 
 }

@@ -15,26 +15,20 @@
         android:layout_marginTop="16dp"
         android:textStyle="bold"
         android:gravity="start"
+        android:text="@string/payment_method"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="@string/payment_method" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <RadioGroup
         android:id="@+id/payment_options"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:checkedButton="@id/option_tingg"
+        android:checkedButton="@id/option_mpesa"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/payment_method_text_view">
-
-        <RadioButton
-            android:id="@+id/option_tingg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tingg" />
 
         <RadioButton
             android:id="@+id/option_mpesa"
@@ -48,6 +42,8 @@
             android:layout_height="wrap_content"
             android:text="@string/debit_card" />
     </RadioGroup>
+
+
 
 
     <TextView
@@ -72,7 +68,6 @@
         style="@style/Widget.FurnitureStore.SecondaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:text="@string/complete_checkout"
         app:icon="@drawable/ic_check"
         app:iconGravity="end"

@@ -43,7 +43,7 @@ class CartItemsAdapter :
             binding.cartItemPriceTextView.text =
                 binding.root.context.getString(R.string.total_format, cartItem.subTotal)
 
-
+            viewModel.updateCartTotalAmount(cartItem.subTotal.toLong())
             val imgUri = cartItem.imageUrl.toUri().buildUpon().scheme("https").build()
             binding.cartItemImageView.load(imgUri) {
                 placeholder(R.drawable.ic_loading)
@@ -52,7 +52,7 @@ class CartItemsAdapter :
 
             binding.subtractButton.setOnClickListener {
                 if (cartItem.quantity <= 1) {
-                    viewModel.deleteCartItem(cartItem.id.toString())
+                    viewModel.deleteCartItem(cartItem.id)
                 } else {
                     val unitPrice = cartItem.subTotal / cartItem.quantity
                     val updatedItem = CartItem(
@@ -63,7 +63,6 @@ class CartItemsAdapter :
                         cartItem.imageUrl
                     )
                     viewModel.insert(updatedItem)
-
                 }
 
 
@@ -95,7 +94,7 @@ class CartItemsAdapter :
         }
     }
 
-    override fun onBindViewHolder(holder: CartItemsAdapter.CartItemsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CartItemsViewHolder, position: Int) {
         val cartItem = getItem(position)
         cartItem?.let {
             holder.bind(it)
@@ -105,8 +104,8 @@ class CartItemsAdapter :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CartItemsAdapter.CartItemsViewHolder {
-        return CartItemsAdapter.CartItemsViewHolder(
+    ): CartItemsViewHolder {
+        return CartItemsViewHolder(
             CartItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,

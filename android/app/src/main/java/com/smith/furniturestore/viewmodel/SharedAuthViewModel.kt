@@ -39,7 +39,6 @@ class SharedAuthViewModel(private val furnitureRepository: FurnitureRepository) 
     }
 
 
-
     /**
      * Launching a new coroutine to submit user registration details to api
      * in a non-blocking way

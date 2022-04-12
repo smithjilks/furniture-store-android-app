@@ -50,6 +50,9 @@ class ProfileFragment : Fragment() {
                 getString(R.string.userprofile_info_format, "+${userInfo.phone}")
             binding.userProfileEmailTextView.text =
                 getString(R.string.userprofile_info_format, "${userInfo.email}")
+            if (userInfo.userType != "admin") {
+                binding.userProfileCreateItemButton.isEnabled = false
+            }
 
         })
 

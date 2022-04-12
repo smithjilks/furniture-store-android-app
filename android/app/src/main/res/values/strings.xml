@@ -39,7 +39,6 @@
     <string name="quantity_format">No of Items: %d</string>
     <string name="complete_checkout">Complete Checkout</string>
     <string name="payment_method">"Select a Payment Method to Continue: "</string>
-    <string name="tingg">Tingg</string>
     <string name="mpesa">M-Pesa</string>
     <string name="debit_card">Debit Card</string>
     <string name="error_password">Password should be greater than 8 characters</string>
@@ -49,6 +48,16 @@
     <string name="error_phone">Phone is required</string>
     <string name="error_confirm_password">Passwords do not match</string>
     <string name="userprofile_info_format">%s</string>
+    <string name="checkout_total">Total Cost is  Ksh.  %s</string>
+    <string name="short_desc">Short Description</string>
+    <string name="long_desc">Long Description</string>
+    <string name="price">Unit Price</string>
+    <string name="select_image">Select Image</string>
+    <string name="error_price">Item price is required</string>
+    <string name="long_desc_error">Item Long Description is required</string>
+    <string name="short_desc_error">Item Short Description is required</string>
+    <string name="title_error">Item title/name is required</string>
+    <string name="image_error">Item image is required</string>
 
 
 </resources>

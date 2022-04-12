@@ -13,13 +13,14 @@
         <entry key="app/src/main/res/layout/fragment_cart.xml" value="0.14945652173913043" />
         <entry key="app/src/main/res/layout/fragment_catalog.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_catalog_item_details.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_checkout.xml" value="0.14945652173913043" />
+        <entry key="app/src/main/res/layout/fragment_checkout.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_create_item.xml" value="0.1984375" />
         <entry key="app/src/main/res/layout/fragment_favourites.xml" value="0.14945652173913043" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.14945652173913043" />
-        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_orders.xml" value="0.14945652173913043" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.14945652173913043" />
-        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.16" />
         <entry key="app/src/main/res/layout/ic_broken_image.xml" value="0.1308876811594203" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
       </map>

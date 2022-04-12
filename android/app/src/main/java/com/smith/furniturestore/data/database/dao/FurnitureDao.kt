@@ -49,6 +49,10 @@ interface FurnitureDao {
     fun getAllCartItems(): PagingSource<Int, CartItem>
     //PagingSource returns flow by default
 
+    @Query("SELECT * FROM cart_table")
+    suspend fun getAllCartItemsAsList(): List<CartItem>
+    //PagingSource returns flow by default
+
     @Query("SELECT * FROM cart_table where id=:id")
     fun getCartItemById(id: String): CartItem
 

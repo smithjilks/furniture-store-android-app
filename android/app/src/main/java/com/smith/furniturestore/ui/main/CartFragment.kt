@@ -1,12 +1,15 @@
 package com.smith.furniturestore.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,14 +55,12 @@ class CartFragment : Fragment() {
 
         /**
          * Running with paging source
-         * Note: Uses the MoviesAdapter
          */
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getAll.collectLatest { pagedList ->
-                pagedList?.let {
+                pagedList.let {
                     adapter.submitData(pagedList)
                 }
-
             }
         }
 
@@ -74,6 +75,15 @@ class CartFragment : Fragment() {
                 findNavController().navigate(R.id.action_cartFragment_to_checkoutFragment)
             }
         }
+
+
+        viewModel.totalCost.observe(viewLifecycleOwner, Observer {
+            it.let {
+                binding.cartTotalCostOfItemsTextView.text = "Ksh." + it.toString()
+                Log.d("Total Cost Observing", it.toString())
+            }
+
+        })
 
     }
 

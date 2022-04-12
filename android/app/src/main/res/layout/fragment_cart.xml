@@ -23,10 +23,24 @@
         android:id="@+id/cart_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/cart_checkout_button"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/cart_total_cost_of_items_text_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/clear_cart_button" />
+
+    <TextView
+        android:id="@+id/cart_total_cost_of_items_text_view"
+        style="@style/Widget.FurnitureStore.ItemTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:textStyle="bold"
+        tools:text="ksh: 500000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cart_checkout_button"/>
 
     <Button
         android:id="@+id/cart_checkout_button"
