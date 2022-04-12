@@ -102,8 +102,7 @@ exports.createOrder = (req, res) => {
     totalCost: req.body.totalCost,
     items: req.body.items,
     deliveryLat: req.body.deliveryLat,
-    deliveryLong: req.body.deliveryLong,
-    orderStatus: req.body.orderStatus
+    deliveryLong: req.body.deliveryLong
   });
 
   order
@@ -117,6 +116,7 @@ exports.createOrder = (req, res) => {
     })
 
     .catch(error => {
+      console.log(error)
       res.status(500).json({
         message: 'creating a order failed!',
         error: error
