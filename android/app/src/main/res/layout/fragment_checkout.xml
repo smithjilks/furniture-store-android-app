@@ -7,6 +7,17 @@
     android:padding="16dp"
     tools:context=".ui.main.CheckoutFragment">
 
+    <ProgressBar
+        android:id="@+id/checkout_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/payment_method_text_view"
         style="@style/Widget.FurnitureStore.ItemTitleTextView"
@@ -45,6 +56,38 @@
 
 
 
+    <Button
+        android:id="@+id/select_location_button"
+        style="@style/Widget.FurnitureStore.SecondaryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/select_delivery_location"
+        app:icon="@drawable/ic_location_searching"
+        app:iconGravity="end"
+        app:layout_constraintTop_toBottomOf="@id/payment_options"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/delivery_location_text_view"
+        style="@style/Widget.FurnitureStore.TextView"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Nairobi, Kenya"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_location_button" />
+
+    <fragment
+        android:id="@+id/place_autocomplete_fragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 
     <TextView
         android:id="@+id/checkout_total_cost_text_view"
@@ -60,12 +103,9 @@
         app:layout_constraintBottom_toTopOf="@id/complete_checkout_button"
         tools:text="Ksh. 100,000" />
 
-
-
-
     <Button
         android:id="@+id/complete_checkout_button"
-        style="@style/Widget.FurnitureStore.SecondaryButton"
+        style="@style/Widget.FurnitureStore.PrimaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/complete_checkout"

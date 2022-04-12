@@ -65,8 +65,8 @@ class FurnitureRemoteDatasource(
             furnitureAPI.retrofitService.getUserOrders(userId)
         }
 
-    suspend fun createNewOrderItem(orderItem: OrderItem): ApiResponse =
+    suspend fun createNewOrderItem(token:String, orderItem: OrderItem): ApiResponse =
         withContext(ioDispatcher) {
-            furnitureAPI.retrofitService.createOrderItem(orderItem)
+            furnitureAPI.retrofitService.createOrderItem(token, orderItem)
         }
 }

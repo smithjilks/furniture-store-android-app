@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import coil.load
@@ -47,7 +48,12 @@ class CatalogItemDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        viewModel.userProfileInfo.observe(viewLifecycleOwner, Observer {
+            if(it.userType == "admin") {
+                binding.addToCartFab.isEnabled = false
+                binding.saveButton.isEnabled = false
+            }
+        })
         lifecycleScope.launch {
             val item = viewModel.getSingleCatalogItemById(args.itemId)
             item?.let {

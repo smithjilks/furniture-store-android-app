@@ -52,6 +52,9 @@ class ProfileFragment : Fragment() {
                 getString(R.string.userprofile_info_format, "${userInfo.email}")
             if (userInfo.userType != "admin") {
                 binding.userProfileCreateItemButton.isEnabled = false
+            } else {
+                binding.userProfileCartButton.isEnabled = false
+                binding.userProfileSavedItemsButton.isEnabled = false
             }
 
         })

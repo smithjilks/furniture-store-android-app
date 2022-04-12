@@ -180,8 +180,8 @@ class FurnitureRepository(
         furnitureRemoteDatasource.fetchUserOrders(userId)
     }
 
-    suspend fun createOrderItem(orderItem: OrderItem) {
-        furnitureRemoteDatasource.createNewOrderItem(orderItem)
+    suspend fun createOrderItem(token:String, orderItem: OrderItem) {
+        furnitureRemoteDatasource.createNewOrderItem(token, orderItem)
     }
 
 

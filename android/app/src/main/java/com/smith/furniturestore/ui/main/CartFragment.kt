@@ -82,8 +82,8 @@ class CartFragment : Fragment() {
                 binding.cartTotalCostOfItemsTextView.text = "Ksh." + it.toString()
                 Log.d("Total Cost Observing", it.toString())
             }
-
         })
+
 
     }
 

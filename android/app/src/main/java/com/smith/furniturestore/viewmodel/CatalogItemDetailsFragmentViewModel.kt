@@ -1,19 +1,24 @@
 package com.smith.furniturestore.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import androidx.lifecycle.*
 import androidx.paging.cachedIn
 import com.smith.furniturestore.data.database.entity.CartItem
 import com.smith.furniturestore.data.database.entity.CatalogItem
+import com.smith.furniturestore.data.database.entity.UserInfo
 import com.smith.furniturestore.data.repository.FurnitureRepository
 import kotlinx.coroutines.launch
 
 class CatalogItemDetailsFragmentViewModel(private val furnitureRepository: FurnitureRepository) : ViewModel() {
-    // CachedIn makes sure even with config changes the data survives (or remains the same)
-    // Tying it to view model scope to take advantage of view model lifecycle
+    // User Profile Info observables
+    private val _userProfileInfo = MutableLiveData<UserInfo>()
+    val userProfileInfo: LiveData<UserInfo> = _userProfileInfo
 
 
+
+    init {
+        getSavedUserInfo()
+    }
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
@@ -27,6 +32,12 @@ class CatalogItemDetailsFragmentViewModel(private val furnitureRepository: Furni
             return  furnitureRepository.getCatalogItemById(id)
     }
 
+    private fun getSavedUserInfo() {
+        viewModelScope.launch {
+            _userProfileInfo.value = furnitureRepository.getUserInfo()
+            Log.d("User Profile Info", _userProfileInfo.toString())
+        }
+    }
 
 }
 

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.smith.furniturestore.data.database.entity.CartItem
 import com.smith.furniturestore.data.database.entity.CatalogItem
+import com.smith.furniturestore.data.database.entity.UserInfo
 import com.smith.furniturestore.data.repository.FurnitureRepository
 import kotlinx.coroutines.launch
 
@@ -12,7 +13,6 @@ class CartFragmentViewModel(private val furnitureRepository: FurnitureRepository
     // TotalCost observables
     private val _totalCost = MutableLiveData<Long>(0)
     val totalCost: LiveData<Long> = _totalCost
-
 
     // CachedIn makes sure even with config changes the data survives (or remains the same)
     // Tying it to view model scope to take advantage of view model lifecycle
@@ -47,6 +47,9 @@ class CartFragmentViewModel(private val furnitureRepository: FurnitureRepository
             Log.d("Total cost", "Here is the total after sum " + _totalCost.value)
         }
     }
+
+
+
 
 
 }

@@ -107,7 +107,7 @@ class SharedAuthViewModel(private val furnitureRepository: FurnitureRepository) 
      * Launching a new coroutine to submit user registration details to api
      * in a non-blocking way
      */
-    fun getSavedUserInfo() {
+    private fun getSavedUserInfo() {
         viewModelScope.launch {
             _userProfileInfo.value = furnitureRepository.getUserInfo()
             Log.d("User Profile Info", _userProfileInfo.toString())

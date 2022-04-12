@@ -17,9 +17,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 import java.util.concurrent.TimeUnit
 
-private const val  BASE_URL =
+private const val BASE_URL =
     "https://0e9e-197-232-61-234.ngrok.io/api/v1/"
-
 
 
 /**
@@ -55,19 +54,20 @@ interface FurnitureApiService {
     suspend fun registerUser(@Body userRegInfo: UserRegistrationInfo): ApiResponse
 
 
-
     // Catalog Methods
     @GET("catalog")
     suspend fun getCatalogItems(): List<CatalogItem>
 
     @POST("catalog")
     @Multipart
-    suspend fun createCatalogItem(@Header("authorization") token: String,
-                                  @Part("title") title: RequestBody,
-                                  @Part("shortDescription") shortDescription: RequestBody,
-                                  @Part("longDescription") longDescription: RequestBody,
-                                  @Part("price") price: RequestBody,
-                                  @Part itemImage: MultipartBody.Part): ApiResponse
+    suspend fun createCatalogItem(
+        @Header("authorization") token: String,
+        @Part("title") title: RequestBody,
+        @Part("shortDescription") shortDescription: RequestBody,
+        @Part("longDescription") longDescription: RequestBody,
+        @Part("price") price: RequestBody,
+        @Part itemImage: MultipartBody.Part
+    ): ApiResponse
 
 
     // Orders
@@ -75,7 +75,10 @@ interface FurnitureApiService {
     suspend fun getUserOrders(@Path("id") userId: String): List<OrderItem>
 
     @POST("orders")
-    suspend fun createOrderItem(@Body orderItem: OrderItem): ApiResponse
+    suspend fun createOrderItem(
+        @Header("authorization") token: String,
+        @Body orderItem: OrderItem
+    ): ApiResponse
 
 }
 

@@ -11,11 +11,11 @@ import com.squareup.moshi.Json
 data class OrderItem(
     @PrimaryKey
     @Json(name ="_id") val id: String,
-    val totalCost: Int,
+    val totalCost: Long,
     val items: List<CartItem>,
     val creator: String,
-    val deliveryLat: String,
-    val deliveryLong: String,
+    val deliveryLat: Double,
+    val deliveryLong: Double,
     val orderStatus: String,
     val createdAt: String,
     val updatedAt: String
