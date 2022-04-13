@@ -42,7 +42,7 @@ class OrderItemsAdapter : PagingDataAdapter<OrderItem, OrderItemsAdapter.OrderIt
             if (viewModel.getUserType() == "admin") {
                 binding.updateOrderItemStatusButton.visibility = View.VISIBLE
             }
-            
+
             binding.orderItemIdTextView.text =
                 binding.root.context.getString(R.string.order_item_id, orderItem.id)
             binding.orderItemTotalTextView.text = binding.root.context.getString(
