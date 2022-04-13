@@ -26,6 +26,7 @@ import com.smith.furniturestore.databinding.FragmentCheckoutBinding
 import com.smith.furniturestore.viewmodel.CheckoutFragmentViewModel
 import com.smith.furniturestore.viewmodel.CheckoutFragmentViewModelFactory
 import com.smith.furniturestore.BuildConfig.MAPS_API_KEY
+import com.smith.furniturestore.data.database.entity.UserInfo
 
 
 class CheckoutFragment : Fragment() {
@@ -86,7 +87,8 @@ class CheckoutFragment : Fragment() {
                             deliveryLong = locationLatLng?.longitude!!,
                             orderStatus = "",
                             createdAt = "",
-                            updatedAt = ""
+                            updatedAt = "",
+                            userDetails = UserInfo("","","","",0,"","","", "")
                         )
                     }
                     Log.d("Order Item", orderItem.toString())

@@ -52,7 +52,6 @@ class CatalogFragment : Fragment() {
 
         /**
          * Running with paging source
-         * Note: Uses the MoviesAdapter
          */
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getAll.collectLatest { pagedList ->

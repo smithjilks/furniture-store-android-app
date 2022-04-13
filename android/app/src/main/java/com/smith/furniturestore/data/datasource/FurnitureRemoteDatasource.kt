@@ -60,6 +60,11 @@ class FurnitureRemoteDatasource(
 
 
     //Orders Methods
+    suspend fun fetchAllOrders(): List<OrderItem> =
+        withContext(ioDispatcher) {
+            furnitureAPI.retrofitService.getAllOrders()
+        }
+
     suspend fun fetchUserOrders(userId: String): List<OrderItem> =
         withContext(ioDispatcher) {
             furnitureAPI.retrofitService.getUserOrders(userId)

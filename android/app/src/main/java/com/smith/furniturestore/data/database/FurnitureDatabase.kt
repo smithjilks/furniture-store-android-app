@@ -15,7 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Database(entities = [CatalogItem::class, CartItem::class, OrderItem::class, UserInfo::class], version = 1, exportSchema = false)
-@TypeConverters(CatalogItemConverter::class, CartItemConverter::class)
+@TypeConverters(CatalogItemConverter::class, CartItemConverter::class, UserInfoConverter::class)
 abstract class FurnitureDatabase : RoomDatabase() {
     abstract fun furnitureDao(): FurnitureDao
 
@@ -39,7 +39,11 @@ abstract class FurnitureDatabase : RoomDatabase() {
                             super.onCreate(db)
                             coroutineScope.launch {
                                 INSTANCE?.let {
-                                    insertData(context, it.furnitureDao())
+                                    /**
+                                     * Seeding db from json file
+                                     * No longer needed since we have a remote datasource
+                                     */
+                                 //   insertData(context, it.furnitureDao())
                                 }
                             }
                         }

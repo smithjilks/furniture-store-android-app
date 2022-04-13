@@ -176,8 +176,12 @@ class FurnitureRepository(
      * Methods for interacting with Remote API [Orders Data]
      */
 
-    suspend fun fetchUserOrders(userId: String) {
-        furnitureRemoteDatasource.fetchUserOrders(userId)
+    suspend fun fetchAllOrders(): List<OrderItem> {
+        return furnitureRemoteDatasource.fetchAllOrders()
+    }
+
+    suspend fun fetchUserOrders(userId: String): List<OrderItem> {
+        return furnitureRemoteDatasource.fetchUserOrders(userId)
     }
 
     suspend fun createOrderItem(token:String, orderItem: OrderItem) {

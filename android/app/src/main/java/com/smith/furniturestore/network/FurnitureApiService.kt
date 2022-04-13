@@ -71,6 +71,9 @@ interface FurnitureApiService {
 
 
     // Orders
+    @GET("orders")
+    suspend fun getAllOrders(): List<OrderItem>
+
     @GET("orders/user/{id}")
     suspend fun getUserOrders(@Path("id") userId: String): List<OrderItem>
 
