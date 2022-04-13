@@ -5,9 +5,19 @@ exports.getOrders = (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
 
-  const orderQuery = Order.find()
+  // const orderQuery = Order.find()
 
-  let fetchedOrder;
+  const orderQuery = Order
+    .aggregate()
+
+    .lookup({
+      from: 'users',
+      localField: 'creator',
+      foreignField: '_id',
+      as: 'userDetails'
+    });
+
+  let fetchedOrders;
 
   if (pageSize && currentPage) {
     orderQuery
@@ -21,6 +31,25 @@ exports.getOrders = (req, res, next) => {
   orderQuery
     .then(documents => {
       fetchedOrders = documents;
+
+      fetchedOrders.map(fetchedOrder => {
+        fetchedUserDetails = fetchedOrder.userDetails[0] 
+        
+        fetchedOrder.userDetails = {
+          "_id": fetchedUserDetails._id,
+          "firstName": fetchedUserDetails.firstName,
+          "lastName": fetchedUserDetails.lastName,
+          "phone": fetchedUserDetails.phone,
+          "email": fetchedUserDetails.email,
+          "userType": fetchedUserDetails.userType,
+          "token": "",
+          "createdAt": "2022-04-11T12:19:31.428Z",
+          "updatedAt": "2022-04-11T12:19:31.428Z"
+      }
+        return fetchedOrder
+      });
+
+
       return Order.countDocuments();
     })
 
@@ -31,6 +60,7 @@ exports.getOrders = (req, res, next) => {
     })
 
     .catch(error => {
+      console.log(error)
       res.status(500).json({
         message: 'Fetching order failed!',
         status: false
