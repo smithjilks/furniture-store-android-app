@@ -15,6 +15,7 @@ import com.smith.furniturestore.R
 import com.smith.furniturestore.data.database.entity.CatalogItem
 import com.smith.furniturestore.databinding.CatalogItemBinding
 import com.smith.furniturestore.ui.main.CatalogFragmentDirections
+import java.text.NumberFormat
 
 
 class CatalogItemsAdapter : PagingDataAdapter<CatalogItem, CatalogItemsAdapter.CatalogItemsViewHolder>(
@@ -27,7 +28,9 @@ class CatalogItemsAdapter : PagingDataAdapter<CatalogItem, CatalogItemsAdapter.C
         fun bind(catalogItem: CatalogItem) {
             binding.catalogItemTitleTextView.text = catalogItem.title
             binding.catalogItemDescriptionTextView.text = catalogItem.shortDescription
-            binding.catalogItemPriceTextView.text = binding.root.context.getString(R.string.price_format, catalogItem.price)
+
+            val catalogPrice = NumberFormat.getCurrencyInstance().format(catalogItem.price)
+            binding.catalogItemPriceTextView.text = binding.root.context.getString(R.string.price_format, catalogPrice)
 
             val imgUri = catalogItem.imageUrl.toUri().buildUpon().scheme("https").build()
             binding.catalogItemImageView.load(imgUri) {

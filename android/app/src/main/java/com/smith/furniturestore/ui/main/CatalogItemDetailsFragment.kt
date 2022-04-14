@@ -22,6 +22,7 @@ import com.smith.furniturestore.viewmodel.CatalogFragmentViewModelFactory
 import com.smith.furniturestore.viewmodel.CatalogItemDetailsFragmentViewModel
 import com.smith.furniturestore.viewmodel.CatalogItemDetailsFragmentViewModelFactory
 import kotlinx.coroutines.launch
+import java.text.NumberFormat
 
 class CatalogItemDetailsFragment : Fragment() {
 
@@ -58,7 +59,9 @@ class CatalogItemDetailsFragment : Fragment() {
             val item = viewModel.getSingleCatalogItemById(args.itemId)
             item?.let {
                 binding.itemTitleTextView.text = it.title
-                binding.itemPriceTextView.text = getString(R.string.price_format, it.price)
+
+                val itemPrice = NumberFormat.getCurrencyInstance().format(it.price)
+                binding.itemPriceTextView.text = getString(R.string.total_format, itemPrice)
                 binding.itemShortDescTextView.text = it.shortDescription
                 binding.itemLongDescTextView.text = it.longDescription
 

@@ -22,6 +22,7 @@ import com.smith.furniturestore.viewmodel.CartFragmentViewModel
 import com.smith.furniturestore.viewmodel.CartFragmentViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.text.NumberFormat
 
 class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
@@ -79,7 +80,8 @@ class CartFragment : Fragment() {
 
         viewModel.totalCost.observe(viewLifecycleOwner, Observer {
             it.let {
-                binding.cartTotalCostOfItemsTextView.text = "Ksh." + it.toString()
+                val cartSubtotal = NumberFormat.getCurrencyInstance().format(it)
+                binding.cartTotalCostOfItemsTextView.text = getString(R.string.total_format, cartSubtotal)
                 Log.d("Total Cost Observing", it.toString())
             }
         })

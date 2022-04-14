@@ -80,7 +80,7 @@ class SharedAuthViewModel(private val furnitureRepository: FurnitureRepository) 
         viewModelScope.launch {
             try {
                 val apiResponse: ApiResponse = furnitureRepository.registerUser(userRegistrationInfo)
-                _signupStatus.value = "Success"
+                _signupStatus.value = "success"
             } catch (e: Exception) {
                 _signupStatus.value = "failed"
             }

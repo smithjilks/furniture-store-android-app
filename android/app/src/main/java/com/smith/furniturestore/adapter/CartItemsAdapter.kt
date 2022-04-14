@@ -21,6 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import java.text.NumberFormat
 
 class CartItemsAdapter :
     PagingDataAdapter<CartItem, CartItemsAdapter.CartItemsViewHolder>(CartItemDiffUtil()) {
@@ -40,8 +41,10 @@ class CartItemsAdapter :
             binding.cartItemTitleTextView.text = cartItem.title
             binding.cartItemQuantityTextView.text =
                 binding.root.context.getString(R.string.quantity_format, cartItem.quantity)
+
+            val cartSubtotal = NumberFormat.getCurrencyInstance().format(cartItem.subTotal)
             binding.cartItemPriceTextView.text =
-                binding.root.context.getString(R.string.total_format, cartItem.subTotal)
+                binding.root.context.getString(R.string.total_format, cartSubtotal)
 
             viewModel.updateCartTotalAmount(cartItem.subTotal.toLong())
             val imgUri = cartItem.imageUrl.toUri().buildUpon().scheme("https").build()
@@ -62,7 +65,7 @@ class CartItemsAdapter :
                         cartItem.subTotal - unitPrice,
                         cartItem.imageUrl
                     )
-                    viewModel.insert(updatedItem)
+                    viewModel.updateSingleCartItem(updatedItem)
                 }
 
 

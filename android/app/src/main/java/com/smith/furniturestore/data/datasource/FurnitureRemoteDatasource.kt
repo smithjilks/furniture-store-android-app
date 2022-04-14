@@ -4,6 +4,7 @@ import com.smith.furniturestore.data.database.entity.CatalogItem
 import com.smith.furniturestore.data.database.entity.OrderItem
 import com.smith.furniturestore.data.database.entity.UserInfo
 import com.smith.furniturestore.model.ApiResponse
+import com.smith.furniturestore.model.UpdateStatusPayload
 import com.smith.furniturestore.model.UserAuthCredentials
 import com.smith.furniturestore.model.UserRegistrationInfo
 import com.smith.furniturestore.network.FurnitureApi
@@ -65,6 +66,11 @@ class FurnitureRemoteDatasource(
             furnitureAPI.retrofitService.getAllOrders()
         }
 
+    suspend fun fetchOrderById(orderId: String): OrderItem =
+        withContext(ioDispatcher) {
+            furnitureAPI.retrofitService.getOrderById(orderId)
+        }
+
     suspend fun fetchUserOrders(userId: String): List<OrderItem> =
         withContext(ioDispatcher) {
             furnitureAPI.retrofitService.getUserOrders(userId)
@@ -74,4 +80,10 @@ class FurnitureRemoteDatasource(
         withContext(ioDispatcher) {
             furnitureAPI.retrofitService.createOrderItem(token, orderItem)
         }
+
+    suspend fun updateOrderItem(token:String, orderId: String, status: UpdateStatusPayload): ApiResponse =
+        withContext(ioDispatcher) {
+            furnitureAPI.retrofitService.updateOrder(token, orderId, status)
+        }
+
 }

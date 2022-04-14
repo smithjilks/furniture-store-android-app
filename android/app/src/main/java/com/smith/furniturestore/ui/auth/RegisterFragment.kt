@@ -69,7 +69,8 @@ class RegisterFragment : Fragment() {
 
         viewModel.signupStatus.observe(viewLifecycleOwner, Observer {
             if (it == "success") {
-                Toast.makeText(context, "Account created successfully", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Account created successfully. Login to Continue", Toast.LENGTH_LONG).show()
+                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
             } else {
                 progressBar!!.visibility = View.GONE
                 binding.signupButton.isEnabled = true

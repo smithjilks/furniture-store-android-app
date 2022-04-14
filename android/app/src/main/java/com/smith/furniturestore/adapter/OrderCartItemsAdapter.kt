@@ -23,6 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import java.text.NumberFormat
 
 class OrderCartItemsAdapter(private val dataset: List<CartItem>
 ) : RecyclerView.Adapter<OrderCartItemsAdapter.CartItemsViewHolder>() {
@@ -36,8 +37,9 @@ class OrderCartItemsAdapter(private val dataset: List<CartItem>
             binding.cartItemTitleTextView.text = cartItem.title
             binding.cartItemQuantityTextView.text =
                 binding.root.context.getString(R.string.quantity_format, cartItem.quantity)
+            val cartSubtotal = NumberFormat.getCurrencyInstance().format(cartItem.subTotal)
             binding.cartItemPriceTextView.text =
-                binding.root.context.getString(R.string.total_format, cartItem.subTotal)
+                binding.root.context.getString(R.string.total_format, cartSubtotal)
 
             val imgUri = cartItem.imageUrl.toUri().buildUpon().scheme("https").build()
             binding.cartItemImageView.load(imgUri) {

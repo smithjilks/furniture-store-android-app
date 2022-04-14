@@ -10,6 +10,7 @@ import com.smith.furniturestore.data.database.entity.OrderItem
 import com.smith.furniturestore.data.database.entity.UserInfo
 import com.smith.furniturestore.data.datasource.FurnitureRemoteDatasource
 import com.smith.furniturestore.model.ApiResponse
+import com.smith.furniturestore.model.UpdateStatusPayload
 import com.smith.furniturestore.model.UserAuthCredentials
 import com.smith.furniturestore.model.UserRegistrationInfo
 import okhttp3.MultipartBody
@@ -180,12 +181,20 @@ class FurnitureRepository(
         return furnitureRemoteDatasource.fetchAllOrders()
     }
 
+    suspend fun fetchOrderById(orderId: String): OrderItem {
+        return furnitureRemoteDatasource.fetchOrderById(orderId)
+    }
+
     suspend fun fetchUserOrders(userId: String): List<OrderItem> {
         return furnitureRemoteDatasource.fetchUserOrders(userId)
     }
 
     suspend fun createOrderItem(token:String, orderItem: OrderItem) {
         furnitureRemoteDatasource.createNewOrderItem(token, orderItem)
+    }
+
+    suspend fun updateOrderItem(token:String, orderId: String, status: UpdateStatusPayload): ApiResponse {
+        return furnitureRemoteDatasource.updateOrderItem(token, orderId, status)
     }
 
 
@@ -214,5 +223,6 @@ class FurnitureRepository(
             itemImage
         )
     }
+
 
 }

@@ -8,13 +8,21 @@ import com.smith.furniturestore.data.database.entity.CatalogItem
 import com.smith.furniturestore.data.database.entity.OrderItem
 import com.smith.furniturestore.data.database.entity.UserInfo
 import com.smith.furniturestore.data.repository.FurnitureRepository
+import com.smith.furniturestore.model.ApiResponse
+import com.smith.furniturestore.model.UpdateStatusPayload
 import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.RequestBody
 
 class OrderFragmentViewModel(private val furnitureRepository: FurnitureRepository) : ViewModel() {
 
     // User Profile Info observables
     private val _userProfileInfo = MutableLiveData<UserInfo>()
     val userProfileInfo: LiveData<UserInfo> = _userProfileInfo
+
+    // Update Order status observables
+    private val _statusLiveData = MutableLiveData<String>()
+    val statusLiveData: LiveData<String> = _statusLiveData
 
 
     init {
@@ -64,6 +72,28 @@ class OrderFragmentViewModel(private val furnitureRepository: FurnitureRepositor
 
     fun getUserType() : String? {
         return _userProfileInfo.value?.userType
+    }
+
+    fun updateOrderStatus(orderId: String, status: String) {
+        val statusPayload = UpdateStatusPayload(
+            status
+        )
+        val token = "Bearer ${_userProfileInfo.value?.token}"
+
+        viewModelScope.launch {
+            try {
+                val response = furnitureRepository.updateOrderItem(token, orderId, statusPayload)
+                val orderItem: OrderItem = furnitureRepository.fetchOrderById(orderId)
+                furnitureRepository.insertOrderItem(orderItem)
+
+                _statusLiveData.value = "success"
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                _statusLiveData.value = "failed"
+
+            }
+        }
     }
 
 

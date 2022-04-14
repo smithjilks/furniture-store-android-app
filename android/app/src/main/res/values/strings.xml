@@ -34,8 +34,8 @@
     <string name="empty_cart">Clear Cart</string>
     <string name="view_more">View More</string>
     <string name="read_more">Read More</string>
-    <string name="price_format">Ksh. %d</string>
-    <string name="total_format">Total cost: %d</string>
+    <string name="price_format">%s</string>
+    <string name="total_format">Total cost: %s</string>
     <string name="quantity_format">No of Items: %d</string>
     <string name="complete_checkout">Complete Checkout</string>
     <string name="payment_method">"Select a Payment Method to Continue: "</string>
@@ -60,16 +60,18 @@
     <string name="image_error">Item image is required</string>
     <string name="select_delivery_location">Select Delivery Location</string>
     <string name="update_order_status">update order status</string>
-    <string name="order_item_id">ORDER ID:    %s</string>
-    <string name="order_item_total_format">ORDER TOTAL COST:    %d</string>
-    <string name="order_item_location_format">DELIVERY LOCATION:    %s</string>
-    <string name="order_item_status_format">ORDER STATUS:    %s</string>
-    <string name="order_item_user_name_format">NAME:    %s    %s</string>
-    <string name="order_item_phone_format">PHONE NUMBER:    +%s</string>
-    <string name="order_item_email_format">EMAIL:    %s</string>
+    <string name="order_item_id">ORDER ID:    \t\t%s</string>
+    <string name="order_item_total_format">ORDER TOTAL COST:    \t\t%s</string>
+    <string name="order_item_location_format">DELIVERY LOCATION: \t\tSee Map</string>
+    <string name="order_item_status_format">ORDER STATUS:    \t\t%s</string>
+    <string name="order_item_user_name_format">NAME:    \t\t%s    %s</string>
+    <string name="order_item_phone_format">PHONE NUMBER:    \t\t+%s</string>
+    <string name="order_item_email_format">EMAIL:    \t\t%s</string>
     <string name="user_details">User Details</string>
     <string name="order_details">Order Details</string>
     <string name="ordered_items">Ordered Items</string>
+    <string name="open_map">Open Map</string>
+    <string name="dial_user">Dial User</string>
 
 
 </resources>

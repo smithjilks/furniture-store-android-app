@@ -4,6 +4,7 @@ import com.smith.furniturestore.data.database.entity.CatalogItem
 import com.smith.furniturestore.data.database.entity.OrderItem
 import com.smith.furniturestore.data.database.entity.UserInfo
 import com.smith.furniturestore.model.ApiResponse
+import com.smith.furniturestore.model.UpdateStatusPayload
 import com.smith.furniturestore.model.UserAuthCredentials
 import com.smith.furniturestore.model.UserRegistrationInfo
 import com.squareup.moshi.Moshi
@@ -50,7 +51,7 @@ interface FurnitureApiService {
     suspend fun authUser(@Body userAuthCredentials: UserAuthCredentials): UserInfo
 
     // Register User
-    @POST("users/register")
+    @POST("users/signup")
     suspend fun registerUser(@Body userRegInfo: UserRegistrationInfo): ApiResponse
 
 
@@ -74,6 +75,10 @@ interface FurnitureApiService {
     @GET("orders")
     suspend fun getAllOrders(): List<OrderItem>
 
+    @GET("orders/{id}")
+    suspend fun getOrderById(@Path("id") orderId: String): OrderItem
+
+
     @GET("orders/user/{id}")
     suspend fun getUserOrders(@Path("id") userId: String): List<OrderItem>
 
@@ -81,6 +86,14 @@ interface FurnitureApiService {
     suspend fun createOrderItem(
         @Header("authorization") token: String,
         @Body orderItem: OrderItem
+    ): ApiResponse
+
+
+    @PUT("orders/{id}")
+    suspend fun updateOrder(
+        @Header("authorization") token: String,
+        @Path("id") orderId: String,
+        @Body status: UpdateStatusPayload
     ): ApiResponse
 
 }
