@@ -90,6 +90,9 @@ dependencies {
     // Maps Places API
     implementation 'com.google.android.libraries.places:places:2.5.0'
 
+    // WorkManager dependency
+    implementation "androidx.work:work-runtime-ktx:$rootProject.work_manager"
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

@@ -8,7 +8,13 @@ import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import com.smith.furniturestore.R
 import com.smith.furniturestore.databinding.ActivityAuthBinding
 
+
 class AuthActivity : AppCompatActivity() {
+    companion object {
+        const val TOKEN_EXPIRY = "tokenExpiry"
+        const val TOKEN_EXPIRY_STATUS = "tokenExpiryStatus"
+    }
+
     private lateinit var binding: ActivityAuthBinding
     private lateinit var navController: NavController
 

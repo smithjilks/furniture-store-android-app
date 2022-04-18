@@ -26,7 +26,8 @@ class ProfileFragment : Fragment() {
 
     private val viewModel: SharedAuthViewModel by activityViewModels {
         SharedAuthViewModelFactory(
-            (activity?.application as App).furnitureRepository
+            (activity?.application as App).furnitureRepository,
+            requireActivity().application
         )
     }
 

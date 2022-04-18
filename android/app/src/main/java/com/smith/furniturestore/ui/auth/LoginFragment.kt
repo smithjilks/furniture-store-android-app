@@ -32,7 +32,8 @@ class LoginFragment : Fragment() {
 
     private val viewModel: SharedAuthViewModel by activityViewModels {
         SharedAuthViewModelFactory(
-            (activity?.application as App).furnitureRepository
+            (activity?.application as App).furnitureRepository,
+            requireActivity().application
         )
     }
 
@@ -67,13 +68,12 @@ class LoginFragment : Fragment() {
                     binding.loginEmailEditText.text.toString().trim(),
                     binding.loginPasswordEditText.text.toString()
                 )
-                viewModel.loginUser(userAuthCredentials)
+                viewModel.loginUser(userAuthCredentials, requireActivity().application)
             }
         }
 
         viewModel.loginStatus.observe(viewLifecycleOwner, Observer {
             if (it == "success") {
-
                 val intent = Intent(context, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)

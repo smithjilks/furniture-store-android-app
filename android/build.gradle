@@ -14,6 +14,7 @@ buildscript {
         paging_version = '3.1.1'
         room_paging_version = '2.5.0-alpha01'
         fragment_version = '1.4.1'
+        work_manager = "2.7.1"
     }
     repositories {
         google()
