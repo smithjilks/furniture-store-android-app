@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:theme="@style/Theme.FurnitureStore"
     tools:context=".ui.main.CreateItemFragment">
 
     <ProgressBar
@@ -112,7 +113,8 @@
         android:id="@+id/create_item_error_image_view_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:enabled="false"
+        android:enabled="true"
+        android:maxLength="0"
         android:inputType="text"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@id/create_item_image_picker_button"
