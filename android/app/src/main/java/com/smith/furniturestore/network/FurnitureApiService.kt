@@ -19,7 +19,7 @@ import retrofit2.http.*
 import java.util.concurrent.TimeUnit
 
 private const val BASE_URL =
-    "https://0e9e-197-232-61-234.ngrok.io/api/v1/"
+    "https://a913-197-232-61-226.ngrok.io/api/v1/"
 
 
 /**
@@ -41,7 +41,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 /**
- * A public interface that exposes the methods for network calls
+ * FurnitureApiService is a public interface that exposes the methods for network calls
  */
 interface FurnitureApiService {
 
@@ -100,7 +100,7 @@ interface FurnitureApiService {
 
 
 /**
- * A public API object that exposes the lazy-initialized Retrofit service
+ * FurnitureApi is a public API object that exposes the lazy-initialized Retrofit service
  */
 
 object FurnitureApi {

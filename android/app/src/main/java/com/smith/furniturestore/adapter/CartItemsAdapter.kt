@@ -46,7 +46,6 @@ class CartItemsAdapter :
             binding.cartItemPriceTextView.text =
                 binding.root.context.getString(R.string.total_format, cartSubtotal)
 
-            viewModel.updateCartTotalAmount(cartItem.subTotal.toLong())
             val imgUri = cartItem.imageUrl.toUri().buildUpon().scheme("https").build()
             binding.cartItemImageView.load(imgUri) {
                 placeholder(R.drawable.ic_loading)
@@ -55,6 +54,7 @@ class CartItemsAdapter :
 
             binding.subtractButton.setOnClickListener {
                 if (cartItem.quantity <= 1) {
+                    viewModel.updateCartTotalAmount(-cartItem.subTotal.toLong())
                     viewModel.deleteCartItem(cartItem.id)
                 } else {
                     val unitPrice = cartItem.subTotal / cartItem.quantity
@@ -66,6 +66,8 @@ class CartItemsAdapter :
                         cartItem.imageUrl
                     )
                     viewModel.updateSingleCartItem(updatedItem)
+                    viewModel.updateCartTotalAmount(-unitPrice.toLong())
+
                 }
 
 
@@ -81,6 +83,8 @@ class CartItemsAdapter :
                     cartItem.imageUrl
                 )
                 viewModel.updateSingleCartItem(updatedItem)
+                viewModel.updateCartTotalAmount(unitPrice.toLong())
+
 
             }
         }

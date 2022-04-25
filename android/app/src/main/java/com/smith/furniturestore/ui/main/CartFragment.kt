@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +30,7 @@ class CartFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
 
-    private val viewModel: CartFragmentViewModel by viewModels {
+    private val viewModel: CartFragmentViewModel by activityViewModels {
         CartFragmentViewModelFactory(
             (activity?.application as App).furnitureRepository
         )
@@ -43,6 +43,7 @@ class CartFragment : Fragment() {
     ): View? {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,11 +55,20 @@ class CartFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
 
+
+        viewModel.totalCost.observe(viewLifecycleOwner, Observer {
+            it.let {
+                val cartSubtotal = NumberFormat.getCurrencyInstance().format(it)
+                binding.cartTotalCostOfItemsTextView.text = getString(R.string.total_format, cartSubtotal)
+                Log.d("Total Cost Observing", it.toString())
+            }
+        })
+
         /**
          * Running with paging source
          */
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getAll.collectLatest { pagedList ->
+            viewModel.getAllCartItemsAsPagingSource.collectLatest { pagedList ->
                 pagedList.let {
                     adapter.submitData(pagedList)
                 }
@@ -76,15 +86,6 @@ class CartFragment : Fragment() {
                 findNavController().navigate(R.id.action_cartFragment_to_checkoutFragment)
             }
         }
-
-
-        viewModel.totalCost.observe(viewLifecycleOwner, Observer {
-            it.let {
-                val cartSubtotal = NumberFormat.getCurrencyInstance().format(it)
-                binding.cartTotalCostOfItemsTextView.text = getString(R.string.total_format, cartSubtotal)
-                Log.d("Total Cost Observing", it.toString())
-            }
-        })
 
 
     }

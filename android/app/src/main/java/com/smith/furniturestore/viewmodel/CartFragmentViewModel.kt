@@ -12,14 +12,25 @@ import kotlinx.coroutines.launch
 class CartFragmentViewModel(private val furnitureRepository: FurnitureRepository) : ViewModel() {
 
     // TotalCost observables
-    private val _totalCost = MutableLiveData<Long>(0)
+    private val _totalCost = MutableLiveData<Long>()
     val totalCost: LiveData<Long> = _totalCost
 
     // CachedIn makes sure even with config changes the data survives (or remains the same)
     // Tying it to view model scope to take advantage of view model lifecycle
-    val getAll = furnitureRepository.getAllCartItems
+    val getAllCartItemsAsPagingSource = furnitureRepository.getAllCartItems
 
 
+    init {
+        viewModelScope.launch {
+            val allCartItems = furnitureRepository.getAllCartItemsAsList()
+            var total = 0L
+            for (cartItem in allCartItems) {
+                total += cartItem.subTotal
+            }
+            _totalCost.value = total
+        }
+
+    }
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
@@ -38,14 +49,15 @@ class CartFragmentViewModel(private val furnitureRepository: FurnitureRepository
     fun clearCart() {
         viewModelScope.launch {
             furnitureRepository.deleteAllCartItems()
+            _totalCost.value = 0L
         }
     }
 
     fun updateCartTotalAmount(total: Long) {
         viewModelScope.launch {
-            Log.d("Total cost", "Here is the total before sum " + total.toString())
+            Log.d("Total cost in View Model", "Here is the total before sum ${_totalCost.value}")
             _totalCost.value = _totalCost.value?.plus(total)
-            Log.d("Total cost", "Here is the total after sum " + _totalCost.value)
+            Log.d("Total cost in View Model", "Here is the total after sum " + _totalCost.value)
         }
     }
 

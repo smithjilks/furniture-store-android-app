@@ -26,7 +26,6 @@ class CreateItemInstrumentedTests {
         launchFragmentInContainer<CreateItemFragment>()
         onView(withId(R.id.create_item_button)).perform(click())
         onView(withId(R.id.create_item_item_title_edit_text)).check(matches(hasErrorText("Item title/name is required")))
-
     }
 
     @Test
