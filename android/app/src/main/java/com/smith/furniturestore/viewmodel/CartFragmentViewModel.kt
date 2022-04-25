@@ -18,7 +18,7 @@ class CartFragmentViewModel(private val furnitureRepository: FurnitureRepository
     // CachedIn makes sure even with config changes the data survives (or remains the same)
     // Tying it to view model scope to take advantage of view model lifecycle
     val getAllCartItemsAsPagingSource = furnitureRepository.getAllCartItems
-    
+
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */

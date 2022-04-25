@@ -23,9 +23,27 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
 
+
+/**
+ * CartItemsAdapter
+ *
+ * An adapter for items added to the cart table for display in the cart items recycler view
+ * It extends the PagingDataAdapter class
+ *
+ * @param CartItem DataClass/Entity for the PagingDataAdapter.
+ * @param CartItemsAdapter.CartItemsViewHolder Custom ViewHolder Class the PagingDataAdapter.
+ */
 class CartItemsAdapter :
     PagingDataAdapter<CartItem, CartItemsAdapter.CartItemsViewHolder>(CartItemDiffUtil()) {
 
+    /**
+     * CartItemsViewHolder
+     *
+     * A custom ViewHolder for items added to the cart table for display in the cart items recycler view
+     * It extends the RecyclerView.ViewHolder
+     *
+     * @property binding ViewBinding for the cart_item.xml layout view.
+     */
     class CartItemsViewHolder(private val binding: CartItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -37,6 +55,10 @@ class CartItemsAdapter :
         )[CartFragmentViewModel::class.java]
 
 
+        /**
+         * Populates the cart_item.xml layout with values.
+         * @return unit
+         */
         fun bind(cartItem: CartItem) {
             binding.cartItemTitleTextView.text = cartItem.title
             binding.cartItemQuantityTextView.text =
@@ -91,16 +113,38 @@ class CartItemsAdapter :
 
     }
 
+    /**
+     * CartItemDiffUtil
+     *
+     * A custom DiffUtil class for items added to the cart table
+     * It extends the PagingDataAdapter class
+     *
+     * @param CartItem Cart Item DataClass/Entity.
+     */
     class CartItemDiffUtil : DiffUtil.ItemCallback<CartItem>() {
+        /**
+         * Checks whether items updated/added to the cart table are the same.
+         * @return Boolean
+         */
         override fun areItemsTheSame(oldItem: CartItem, newItem: CartItem): Boolean {
             return oldItem.id == newItem.id && oldItem.quantity == newItem.quantity
         }
 
+        /**
+         * Checks whether contents updated/added to the cart table are the same.
+         * @return Boolean
+         */
         override fun areContentsTheSame(oldItem: CartItem, newItem: CartItem): Boolean {
             return oldItem.id == newItem.id
         }
     }
 
+    /**
+     * Binds view holder to the adapter
+     * @param holder ViewHolder for the adapter
+     * @param position Current item position in the recycler view
+     * @return Unit
+     */
     override fun onBindViewHolder(holder: CartItemsViewHolder, position: Int) {
         val cartItem = getItem(position)
         cartItem?.let {
@@ -108,6 +152,12 @@ class CartItemsAdapter :
         }
     }
 
+    /**
+     * Create the ViewHolder for the cart items
+     * @param parent ViewGroup
+     * @param viewType Integer that indicates the view type
+     * @return an inflated CartItemsViewHolder
+     */
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

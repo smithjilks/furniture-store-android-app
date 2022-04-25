@@ -22,11 +22,27 @@ import com.smith.furniturestore.viewmodel.OrderFragmentViewModel
 import com.smith.furniturestore.viewmodel.OrderFragmentViewModelFactory
 import java.text.NumberFormat
 
-
+/**
+ * OrderItemsAdapter
+ *
+ * An adapter for items added to the order table for display in the order items recycler view
+ * It extends the PagingDataAdapter class
+ *
+ * @param OrderItem DataClass/Entity for the PagingDataAdapter.
+ * @param OrderItemsAdapter.OrderItemsViewHolder Custom ViewHolder Class the PagingDataAdapter.
+ */
 class OrderItemsAdapter : PagingDataAdapter<OrderItem, OrderItemsAdapter.OrderItemsViewHolder>(
     OrderItemDiffUtil()
 ) {
 
+    /**
+     * OrderItemsViewHolder
+     *
+     * A custom ViewHolder for items added to the order table for display in the order items recycler view
+     * It extends the RecyclerView.ViewHolder
+     *
+     * @property binding ViewBinding for the order_item.xml layout view.
+     */
     class OrderItemsViewHolder(private val binding: OrderItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -37,6 +53,10 @@ class OrderItemsAdapter : PagingDataAdapter<OrderItem, OrderItemsAdapter.OrderIt
             )
         )[OrderFragmentViewModel::class.java]
 
+        /**
+         * Populates the order_item.xml layout with values.
+         * @return unit
+         */
         fun bind(orderItem: OrderItem) {
 
             if (viewModel.getUserType() == "admin") {
@@ -125,17 +145,38 @@ class OrderItemsAdapter : PagingDataAdapter<OrderItem, OrderItemsAdapter.OrderIt
 
     }
 
+    /**
+     * OrderItemDiffUtil
+     *
+     * A custom DiffUtil class for items added to the order table
+     * It extends the PagingDataAdapter class
+     *
+     * @param OrderItem Order Item DataClass/Entity.
+     */
     class OrderItemDiffUtil : DiffUtil.ItemCallback<OrderItem>() {
+        /**
+         * Checks whether items updated/added to the order table are the same.
+         * @return Boolean
+         */
         override fun areItemsTheSame(oldItem: OrderItem, newItem: OrderItem): Boolean {
-            Log.d("Order Adapter Diff Util", "${oldItem.orderStatus}   ${newItem.orderStatus} ")
             return oldItem.id == newItem.id && oldItem.orderStatus == newItem.orderStatus
         }
 
+        /**
+         * Checks whether contents updated/added to the order table are the same.
+         * @return Boolean
+         */
         override fun areContentsTheSame(oldItem: OrderItem, newItem: OrderItem): Boolean {
             return oldItem.id == newItem.id
         }
     }
 
+    /**
+     * Binds view holder to the adapter
+     * @param holder ViewHolder for the adapter
+     * @param position Current item position in the recycler view
+     * @return Unit
+     */
     override fun onBindViewHolder(holder: OrderItemsViewHolder, position: Int) {
         val orderItem = getItem(position)
         orderItem?.let {
@@ -143,6 +184,12 @@ class OrderItemsAdapter : PagingDataAdapter<OrderItem, OrderItemsAdapter.OrderIt
         }
     }
 
+    /**
+     * Create the ViewHolder for the order items
+     * @param parent ViewGroup
+     * @param viewType Integer that indicates the view type
+     * @return an inflated OrderItemsViewHolder
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderItemsViewHolder {
         return OrderItemsViewHolder(
             OrderItemBinding.inflate(
