@@ -48,6 +48,7 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.initializeTotalAmount()
 
         recyclerView = binding.cartRecyclerView
         val adapter = CartItemsAdapter()
